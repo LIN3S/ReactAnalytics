@@ -2,17 +2,24 @@ import React, {PureComponent} from 'react';
 import {flush, pushPageLoadDataLayer} from 'lin3s-react-analytics';
 import PropTypes from 'prop-types';
 
+const pushDataLayers = () => {
+  setTimeout(() => {
+    pushPageLoadDataLayer();
+    flush();
+  }, 0);
+};
+
 class Page extends PureComponent {
   componentDidMount() {
-    if (this.props.doNotTrack) {
-      return;
+    if (!this.props.doNotTrack) {
+      pushDataLayers();
     }
+  }
 
-    setTimeout(() => {
-      pushPageLoadDataLayer();
-      flush();
-    }, 0);
-
+  componentWillReceiveProps(nextProps) {
+    if (this.props.doNotTrack && !nextProps.doNotTrack) {
+      pushDataLayers();
+    }
   }
 
   render() {
