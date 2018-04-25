@@ -4,4 +4,6 @@ export {
   transformProductForDetailDL,
   transformProductForClickDL,
   transformCartItemsForCheckoutDL,
+  transformAddToCartDL,
+  transformRemoveFromCartDL,
 } from './transforms';

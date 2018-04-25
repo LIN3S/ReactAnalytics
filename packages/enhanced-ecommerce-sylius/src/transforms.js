@@ -31,7 +31,19 @@ const transformProductsForImpression = (products, params) => products.map((produ
   category: getCategoryForProduct(product),
   brand: product.brand || params.brand,
   list: params.list,
+  price: getVariantPrice(product),
   position: index + 1,
+}));
+
+const transformProductsForCart = (items, params) => items.map(item => ({
+  name: item.product.name,
+  id: item.product.code,
+  variant: item.product.variants[0].code,
+  price: getVariantPrice(item.product),
+  brand: item.product.brand || params.brand,
+  category: getCategoryForProduct(item.product),
+  quantity: item.quantity,
+  ...item.customFields,
 }));
 
 const transformOrderForDL = (order, params = {}) => ({
@@ -97,10 +109,32 @@ const transformCartItemsForCheckoutDL = (cartItems, params = {}) => ({
   }
 });
 
+const transformAddToCartDL = (products, params = {}) => ({
+  event: 'addToCart',
+  ecommerce: {
+    currencyCode: params.currency || 'EUR',
+    add: {
+      products: transformProductsForCart(products, params),
+    }
+  }
+});
+
+const transformRemoveFromCartDL = (products, params = {}) => ({
+  event: 'removeFromCart',
+  ecommerce: {
+    currencyCode: params.currency || 'EUR',
+    add: {
+      products: transformProductsForCart(products, params),
+    }
+  }
+});
+
 export {
   transformOrderForDL,
   transformProductsForImpressionDL,
   transformProductForDetailDL,
   transformProductForClickDL,
   transformCartItemsForCheckoutDL,
+  transformAddToCartDL,
+  transformRemoveFromCartDL,
 };
