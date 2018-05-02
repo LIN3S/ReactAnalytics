@@ -23,6 +23,7 @@ const transformProducts = (items, params) => items.map(item => ({
   brand: item.brand || params.brand,
   category: getCategoryForProduct(item.product),
   quantity: item.quantity,
+  ...item.customFields,
 }));
 
 const transformProductsForImpression = (products, params) => products.map((product, index) => ({
@@ -103,6 +104,7 @@ const transformCartItemsForCheckoutDL = (cartItems, params = {}) => ({
     checkout: {
       actionField: {
         step: params.step || 1,
+        ...params.customActionField,
       },
       products: transformProducts(cartItems, params),
     }
