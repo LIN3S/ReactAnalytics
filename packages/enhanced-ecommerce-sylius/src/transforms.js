@@ -19,7 +19,7 @@ const transformProducts = (items, params) => items.map(item => ({
   name: item.product.name,
   id: item.product.code,
   variant: item.product.variants[0].code,
-  price: item.total / 100,
+  price: (item.total / item.quantity) / 100,
   brand: item.brand || params.brand,
   category: getCategoryForProduct(item.product),
   quantity: item.quantity,
