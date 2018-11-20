@@ -33,7 +33,7 @@ const transformProductsForImpression = (products, params) => products.map((produ
   brand: product.brand || params.brand,
   list: params.list,
   price: getVariantPrice(product),
-  position: index + 1,
+  position: (params.initialIndex || 0) + index + 1,
   ...product.customFields,
 }));
 
