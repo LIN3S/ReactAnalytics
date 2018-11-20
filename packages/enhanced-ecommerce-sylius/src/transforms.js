@@ -34,6 +34,7 @@ const transformProductsForImpression = (products, params) => products.map((produ
   list: params.list,
   price: getVariantPrice(product),
   position: index + 1,
+  ...product.customFields,
 }));
 
 const transformProductsForCart = (items, params) => items.map(item => ({
@@ -75,6 +76,7 @@ const transformProductForDetailDL = (product, params = {}) => ({
         price: getVariantPrice(product),
         category: getCategoryForProduct(product),
         brand: product.brand || params.brand,
+        ...product.customFields,
       }]
     }
   }
@@ -93,6 +95,7 @@ const transformProductForClickDL = (product, params = {}) => ({
         price: getVariantPrice(product),
         category: getCategoryForProduct(product),
         position: params.position,
+        ...product.customFields,
       }]
     }
   }
