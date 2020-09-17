@@ -12,7 +12,7 @@ const queueDataLayer = dataLayer => dls.push(dataLayer);
 
 const pushDataLayer = dataLayer => pushDL(dataLayer);
 
-const pushPageLoadDataLayer = (eventName = 'DOM SPA Ready') => {
+const pushPageLoadDataLayer = (eventName = 'pageview') => {
   pushDL({event: eventName});
 };
 
